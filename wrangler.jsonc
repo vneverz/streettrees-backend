@@ -9,7 +9,14 @@
 	"compatibility_date": "2025-09-21",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "streettrees",
+			"database_id": "fba7a63e-70ea-4ad5-8a30-810f1893a726"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
