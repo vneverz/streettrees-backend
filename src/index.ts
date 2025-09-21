@@ -21,6 +21,7 @@ export default {
 		  const { results } = await env.DB.prepare(
 			"SELECT * FROM street_trees ORDER BY created_at DESC"
 		  ).all();
+		  // lat/lng 直接回傳
 		  return Response.json(results, { headers: corsHeaders });
 		} catch (err) {
 		  return new Response(`DB Error: ${err}`, { status: 500, headers: corsHeaders });
@@ -37,14 +38,16 @@ export default {
 			district: string;
 			photo: string | null;
 			description: string;
+			lat: number | null;
+			lng: number | null;
 		  };
-		  const { species, age, location, district, photo, description } = data;
+		  const { species, age, location, district, photo, description, lat, lng } = data;
 
 		  await env.DB.prepare(
-			`INSERT INTO street_trees (species, age, location, district, photo, description)
-			 VALUES (?1, ?2, ?3, ?4, ?5, ?6)`
+			`INSERT INTO street_trees (species, age, location, district, photo, description, lat, lng)
+			 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)`
 		  )
-			.bind(species, age, location, district, photo, description)
+			.bind(species, age, location, district, photo, description, lat ?? null, lng ?? null)
 			.run();
 
 		  return new Response("Tree inserted successfully", { status: 201, headers: corsHeaders });
